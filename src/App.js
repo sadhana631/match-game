@@ -260,38 +260,36 @@ class App extends Component {
   }
 
   statusChange = () => {
-    const {time} = this.state
-    if ((time = 0)) {
-      this.setState(prevState => ({time: prevState.time - 1}))
+    const { time } = this.state;
+    if (time === 0) {
+      clearInterval(this.timerId);
+      this.setState({ isTrue : true });
     } else {
-      clearInterval(this.timerId)
-      this.setState({isTrue: true})
+      this.setState(prevState => ({ time : prevState.time - 1 }));
     }
-  }
+  };
 
   clickTab = tabId => {
     this.setState({category: tabId})
   }
 
   imageClick = thumbnailUrl => {
-    const {imgUrl} = this.state
+    const { imgUrl } = this.state;
     const imageValue = imagesList.filter(
-      eachValue => (eachValue.thumbnailUrl = thumbnailUrl),
-    )
-    const {imageUrl} = imageValue[0]
-    if ((imageUrl = imgUrl)) {
+      eachValue => eachValue.thumbnailUrl === thumbnailUrl
+    );
+    if (imageValue[0].imageUrl === imageUrl) {
       const newImgUrl =
-        imagesList[Math.floor(Math.random() * imagesList.length)].imageUrl
-      console.log(newImgUrl)
+        imagesList[Math.floor(Math.random() * imagesList.length)].imageUrl;
       this.setState(prevState => ({
         score: prevState.score + 1,
-        imgUrl: newImgUrl,
-    }))
+        imgageUrl: newImgUrl,
+    }));
   } else {
-    clearInterval(this.timerId)
-    this.setState({isTrue: true})
+    clearInterval(this.timerId);
+    this.setState({ isTrue: true });
   }
-}
+};
 
 playAgain = () => {
   this.setState({
@@ -301,14 +299,14 @@ playAgain = () => {
     isTrue: false,
     time: 60,
   })
-  this.timerId = setInterval(this.statusChange, 1000)
+  this.timerId = setInterval(this.statusChange, 1000);
 }
 
 render() {
   const {isTrue, category, score, time, imgUrl} = this.state
   const thumbnailList = imagesList.filter(
-    eachValue => eachValue.category = category,
-  )
+    eachValue => eachValue.category = category
+  );
   return (
     <div className="main-container">
       <nav className="nav-bar">
@@ -342,7 +340,7 @@ render() {
                   <button
                     type="button"
                     className={`tab.button ${
-                      category = eachValue.tabId ? 'highlight-text' : ''
+                      category === eachValue.tabId ? 'highlight-text' : ''
                     }`}
                     onClick={() => this.clickTab(eachValue.tabId)}
                   >
@@ -357,7 +355,7 @@ render() {
                   <button
                     type="button"
                     className="image-button"
-                    onClick={() => thumbnailList.imageClick(eachObject.thumbnailUrl)}
+                    onClick={() => this.imageClick(eachObject.thumbnailUrl)}
                   >
                     <img
                       src={eachObject.thumbnailUrl}
@@ -392,7 +390,7 @@ render() {
               PLAY AGAIN  
             </button>    
           </div>  
-        </div> 
+      </div> 
       )  
     }
 }
