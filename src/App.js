@@ -1,3 +1,4 @@
+import {Component} from 'react'
 import './App.css'
 
 // These are the lists used in the application. You can move them to any component needed.
@@ -253,7 +254,7 @@ class App extends Component {
     score: 0,
     time: 60,
     imageUrl: imagesList[0].imageUrl,
-  }
+  }  
   
   componentDidMount() {
     this.timerId = setInterval(this.statusChange, 100)
@@ -389,10 +390,10 @@ render() {
               />
               PLAY AGAIN  
             </button>    
-          </div>  
-      </div> 
+          </div>   
       )  
     }
+  )  
 }
 
 export default App
