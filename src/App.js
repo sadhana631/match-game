@@ -275,8 +275,8 @@ class App extends Component {
   }
 
   imageClick = thumbnailUrl => {
-    const { imgUrl } = this.state;
-    const imageValue = imagesList.filter(
+    const { imageUrl } = this.state;
+    const imageValue = imagesList.find(
       eachValue => eachValue.thumbnailUrl === thumbnailUrl
     );
     if (imageValue[0].imageUrl === imageUrl) {
@@ -284,7 +284,7 @@ class App extends Component {
         imagesList[Math.floor(Math.random() * imagesList.length)].imageUrl;
       this.setState(prevState => ({
         score: prevState.score + 1,
-        imgageUrl: newImgUrl,
+        imageUrl: newImgUrl,
     }));
   } else {
     clearInterval(this.timerId);
@@ -306,7 +306,7 @@ playAgain = () => {
 render() {
   const {isTrue, category, score, time, imgUrl} = this.state
   const thumbnailList = imagesList.filter(
-    eachValue => eachValue.category = category
+    eachValue => eachValue.category === category
   );
   return (
     <div className="main-container">
@@ -328,6 +328,7 @@ render() {
               alt="timer"
               className="timer-img"
             />  
+            <span className="timer">{time} sec</span>
           </li>
         </ul>  
       </nav>
@@ -340,7 +341,7 @@ render() {
                 <li key={eachValue.tabId}>
                   <button
                     type="button"
-                    className={`tab.button ${
+                    className={`tab-button ${
                       category === eachValue.tabId ? 'highlight-text' : ''
                     }`}
                     onClick={() => this.clickTab(eachValue.tabId)}
@@ -390,9 +391,9 @@ render() {
               />
               PLAY AGAIN  
             </button>    
-          </div>   
-      )  
-    }
+          </div> 
+        </div>    
+    </div>    
   )  
 }
 
